@@ -1,0 +1,39 @@
+{
+  "name": "LCARS",
+  "core": {
+    "black": "#000000",
+    "orange": "#FF9900",
+    "peach": "#FFCC99",
+    "lavender": "#CC99CC",
+    "violet": "#9977AA",
+    "blue": "#9999FF",
+    "red": "#CC4444",
+    "shadow": "#332244",
+    "rust": "#CC6633"
+  },
+  "terminal": {
+    "normal": {
+      "black": "#332244",
+      "red": "#DD5555",
+      "green": "#99CC66",
+      "yellow": "#FF9900",
+      "blue": "#9999FF",
+      "magenta": "#CC99CC",
+      "cyan": "#66CCCC",
+      "white": "#D9C8B4"
+    },
+    "bright": {
+      "black": "#8877AA",
+      "red": "#FF7777",
+      "green": "#BBDD88",
+      "yellow": "#FFCC66",
+      "blue": "#BBBBFF",
+      "magenta": "#EEBBEE",
+      "cyan": "#99DDDD",
+      "white": "#FFF0E0"
+    }
+  },
+  "fonts": {
+    "ui": "Liberation Sans Narrow Bold"
+  }
+}

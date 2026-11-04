@@ -1,0 +1,9 @@
+font=Liberation Sans Narrow Bold 12
+
+[lcars]
+background=000000
+text=FFCC99
+border=FF9900
+border-bottom=FF9900
+button-background=FF9900
+button-text=000000
