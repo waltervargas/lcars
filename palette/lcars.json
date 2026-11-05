@@ -9,7 +9,9 @@
     "blue": "#9999FF",
     "red": "#CC4444",
     "shadow": "#332244",
-    "rust": "#CC6633"
+    "rust": "#CC6633",
+    "abyss": "#0D0814",
+    "surface": "#1A1122"
   },
   "terminal": {
     "normal": {

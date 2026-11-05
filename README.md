@@ -22,6 +22,7 @@ each OS.
 | `swaynag` | `~/.config/swaynag` | Dialog colours |
 | `foot` | `~/.config/foot` | Terminal colours |
 | `kitty` | `~/.config/kitty` | Terminal colours (`lcars.conf`) |
+| `vscode` | VS Code extension | Colour theme; see [its README](targets/vscode/README.md) |
 
 ## Install
 
@@ -30,6 +31,8 @@ each OS.
 ./install.sh             # install them
 ./install.sh kitty       # install one target
 ```
+
+`install.sh` handles every target above except `vscode`, which has its own steps.
 
 Files are symlinked, so edits in this repo take effect directly. Anything
 already in place is kept as `<file>.bak-<timestamp>`.
