@@ -22,6 +22,7 @@ each OS.
 | `swaynag` | `~/.config/swaynag` | Dialog colours |
 | `foot` | `~/.config/foot` | Terminal colours |
 | `kitty` | `~/.config/kitty` | Terminal colours (`lcars.conf`) |
+| `glow` | `~/.config/glow` | Markdown style (`lcars.json`), in glamour's JSON format |
 | `vscode` | VS Code extension | Colour theme; see [its README](targets/vscode/README.md) |
 
 ## Install
@@ -39,6 +40,11 @@ already in place is kept as `<file>.bak-<timestamp>`.
 
 The kitty target only adds the colour file. To use it, add
 `include ./lcars.conf` to `kitty.conf`, then reload with `ctrl+shift+f5`.
+
+The glow target also only adds the style file. To use it, set
+`style: "/home/<you>/.config/glow/lcars.json"` in `glow.yml`. The path must be
+absolute, because glow reads it without expanding `~` or `$HOME`. When output
+goes to a pipe, glow ignores this setting unless you give `-s`.
 
 ## Sway dependencies
 
