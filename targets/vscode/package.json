@@ -1,0 +1,22 @@
+{
+	"name": "lcars-theme",
+	"displayName": "LCARS",
+	"description": "Black LCARS colour theme matching the sway, kitty and foot setup.",
+	"version": "1.0.0",
+	"publisher": "walter",
+	"engines": {
+		"vscode": "^1.60.0"
+	},
+	"categories": [
+		"Themes"
+	],
+	"contributes": {
+		"themes": [
+			{
+				"label": "LCARS",
+				"uiTheme": "vs-dark",
+				"path": "./themes/lcars-color-theme.json"
+			}
+		]
+	}
+}
