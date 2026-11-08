@@ -1,0 +1,29 @@
+# mako notification daemon, LCARS colours. Reload with: makoctl reload
+font=Liberation Sans Narrow Bold 12
+background-color=#000000
+text-color=#FFCC99
+border-color=#FF9900
+border-size=2
+border-radius=0
+progress-color=over #9977AA
+padding=10
+margin=8
+width=380
+max-visible=5
+default-timeout=6000
+anchor=top-right
+layer=top
+max-icon-size=32
+format=<b>%s</b>\n%b
+
+[urgency=low]
+border-color=#9977AA
+text-color=#CC99CC
+
+[urgency=critical]
+border-color=#CC4444
+default-timeout=0
+
+# $mod+Shift+n toggles this mode
+[mode=do-not-disturb]
+invisible=1

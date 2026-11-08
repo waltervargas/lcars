@@ -11,7 +11,7 @@ stamp=$(date +%Y%m%d-%H%M%S)
 
 # Targets installed by default on each OS.
 case $(uname -s) in
-    Linux) defaults="sway swaynag foot kitty glow doom" ;;
+    Linux) defaults="sway swaynag mako kanshi xdg-desktop-portal-wlr foot kitty glow doom" ;;
     Darwin) defaults="kitty doom" ;;
     *) defaults="" ;;
 esac
@@ -19,7 +19,7 @@ esac
 # Where each target's files go. Add new targets here.
 dest() {
     case $1 in
-        sway | swaynag | foot | kitty | glow | doom) echo "$config/$1" ;;
+        sway | swaynag | mako | kanshi | xdg-desktop-portal-wlr | foot | kitty | glow | doom) echo "$config/$1" ;;
         *) return 1 ;;
     esac
 }

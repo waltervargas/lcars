@@ -1,0 +1,21 @@
+# Display profiles. kanshi applies the first profile whose outputs all match the
+# connected displays, and re-applies it on hotplug. List outputs with:
+#   swaymsg -t get_outputs
+# Match an external display by "Make Model Serial" so the profile survives a
+# change of port.
+
+profile laptop {
+    output eDP-1 enable scale 1 position 0,0
+}
+
+# Example: external display above the laptop panel. Fill in the real name.
+# profile docked {
+#     output "Dell Inc. U2720Q ABC123" enable mode 3840x2160 scale 1.5 position 0,0
+#     output eDP-1 enable scale 1 position 0,1440
+# }
+
+# Example: lid closed, external only.
+# profile desk {
+#     output "Dell Inc. U2720Q ABC123" enable mode 3840x2160 scale 1.5 position 0,0
+#     output eDP-1 disable
+# }

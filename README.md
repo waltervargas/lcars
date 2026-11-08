@@ -20,6 +20,9 @@ each OS.
 | --- | --- | --- |
 | `sway` | `~/.config/sway` | Window colours, i3 keybindings, status bar, wallpaper, helper scripts |
 | `swaynag` | `~/.config/swaynag` | Dialog colours |
+| `mako` | `~/.config/mako` | Notification colours and `do-not-disturb` mode |
+| `kanshi` | `~/.config/kanshi` | Display profiles; edit the output names for your machine |
+| `xdg-desktop-portal-wlr` | `~/.config/xdg-desktop-portal-wlr` | Screen-share picker (slurp in LCARS colours) and frame rate |
 | `foot` | `~/.config/foot` | Terminal colours |
 | `kitty` | `~/.config/kitty` | Terminal colours (`lcars.conf`) |
 | `glow` | `~/.config/glow` | Markdown style (`lcars.json`), in glamour's JSON format |
@@ -47,6 +50,14 @@ The glow target also only adds the style file. To use it, set
 absolute, because glow reads it without expanding `~` or `$HOME`. When output
 goes to a pipe, glow ignores this setting unless you give `-s`.
 
+The kanshi target is a starting point: its `laptop` profile names the panel
+`eDP-1`. Check your output names with `swaymsg -t get_outputs` and fill in the
+commented `docked` and `desk` profiles. After editing, restart it with
+`pkill kanshi; swaymsg exec kanshi` (Ubuntu's package has no `kanshictl`).
+mako reloads with `makoctl reload`.
+The portal target takes effect at the next screen share. Restart the service
+with `systemctl --user restart xdg-desktop-portal-wlr` to apply it at once.
+
 The doom target only adds the theme file. To use it, set
 `(setq doom-theme 'doom-lcars)` in `config.el` and restart Emacs or run
 `doom/reload-theme`.
@@ -57,6 +68,7 @@ Required: `sway`, `swaybar`, `python3`, `foot`, `kitty`, `wmenu`,
 `fonts-liberation`.
 
 Optional: `swaylock`, `swayidle`, `grim`, `slurp`, `wl-clipboard`,
+`mako-notifier`, `cliphist`, `kanshi`, `xdg-desktop-portal-wlr`,
 `nm-applet`, `htop`, `baobab`, `bluez`, `wireplumber`, `pulseaudio-utils`,
 `power-profiles-daemon`, `gnome-control-center`.
 
