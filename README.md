@@ -68,9 +68,10 @@ Required: `sway`, `swaybar`, `python3`, `foot`, `kitty`, `wmenu`,
 `fonts-liberation`.
 
 Optional: `swaylock`, `swayidle`, `grim`, `slurp`, `wl-clipboard`,
-`mako-notifier`, `cliphist`, `kanshi`, `xdg-desktop-portal-wlr`,
+`mako-notifier`, `cliphist`, `kanshi`, `xdg-desktop-portal-wlr`, `playerctl`,
 `nm-applet`, `htop`, `baobab`, `bluez`, `wireplumber`, `pulseaudio-utils`,
-`power-profiles-daemon`, `gnome-control-center`.
+`power-profiles-daemon`, `gnome-control-center`, and `autotiling` from PyPI
+(`pipx install autotiling`).
 
 To regenerate the wallpaper (needs Pillow):
 
