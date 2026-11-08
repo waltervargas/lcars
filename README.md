@@ -30,6 +30,7 @@ each OS.
 | `glow` | `~/.config/glow` | Markdown style (`lcars.json`), in glamour's JSON format |
 | `doom` | `~/.config/doom` | Doom Emacs theme (`themes/doom-lcars-theme.el`) and an Org writing `.dir-locals.el`; see [its README](targets/doom/README.md) |
 | `vscode` | VS Code extension | Colour theme; see [its README](targets/vscode/README.md) |
+| `herdr` | `~/.config/herdr-app` | [Herdr](https://herdr.dev) terminal theme (`themes/lcars.json`) |
 
 ## Install
 
@@ -59,6 +60,9 @@ commented `docked` and `desk` profiles. After editing, restart it with
 mako reloads with `makoctl reload`.
 The portal target takes effect at the next screen share. Restart the service
 with `systemctl --user restart xdg-desktop-portal-wlr` to apply it at once.
+
+The herdr target adds `themes/lcars.json`. Pick it in Herdr's settings, or run
+`herdr-app do app.theme --name lcars`.
 
 The doom target only adds the theme file. To use it, set
 `(setq doom-theme 'doom-lcars)` in `config.el` and restart Emacs or run

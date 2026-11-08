@@ -11,8 +11,8 @@ stamp=$(date +%Y%m%d-%H%M%S)
 
 # Targets installed by default on each OS.
 case $(uname -s) in
-    Linux) defaults="sway swaynag mako kanshi xdg-desktop-portal-wlr wob wlogout foot kitty glow doom" ;;
-    Darwin) defaults="kitty doom" ;;
+    Linux) defaults="sway swaynag mako kanshi xdg-desktop-portal-wlr wob wlogout foot kitty glow doom herdr" ;;
+    Darwin) defaults="kitty doom herdr" ;;
     *) defaults="" ;;
 esac
 
@@ -20,6 +20,7 @@ esac
 dest() {
     case $1 in
         sway | swaynag | mako | kanshi | xdg-desktop-portal-wlr | wob | wlogout | foot | kitty | glow | doom) echo "$config/$1" ;;
+        herdr) echo "$config/herdr-app" ;;
         *) return 1 ;;
     esac
 }
