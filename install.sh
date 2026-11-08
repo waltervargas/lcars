@@ -11,15 +11,15 @@ stamp=$(date +%Y%m%d-%H%M%S)
 
 # Targets installed by default on each OS.
 case $(uname -s) in
-    Linux) defaults="sway swaynag foot kitty glow" ;;
-    Darwin) defaults="kitty" ;;
+    Linux) defaults="sway swaynag foot kitty glow doom" ;;
+    Darwin) defaults="kitty doom" ;;
     *) defaults="" ;;
 esac
 
 # Where each target's files go. Add new targets here.
 dest() {
     case $1 in
-        sway | swaynag | foot | kitty | glow) echo "$config/$1" ;;
+        sway | swaynag | foot | kitty | glow | doom) echo "$config/$1" ;;
         *) return 1 ;;
     esac
 }
@@ -36,7 +36,9 @@ for target in "$@"; do
         echo "unknown target: $target" >&2
         exit 1
     fi
-    find "$root/targets/$target" -type f ! -name README.md | while IFS= read -r src; do
+    # README.md and .dir-locals.el are documentation and per-project files.
+    find "$root/targets/$target" -type f ! -name README.md ! -name .dir-locals.el |
+    while IFS= read -r src; do
         dst="$dir/${src#"$root/targets/$target/"}"
         if [ "$(readlink "$dst" 2>/dev/null || true)" = "$src" ]; then
             continue

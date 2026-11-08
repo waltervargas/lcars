@@ -23,6 +23,7 @@ each OS.
 | `foot` | `~/.config/foot` | Terminal colours |
 | `kitty` | `~/.config/kitty` | Terminal colours (`lcars.conf`) |
 | `glow` | `~/.config/glow` | Markdown style (`lcars.json`), in glamour's JSON format |
+| `doom` | `~/.config/doom` | Doom Emacs theme (`themes/doom-lcars-theme.el`) and an Org writing `.dir-locals.el`; see [its README](targets/doom/README.md) |
 | `vscode` | VS Code extension | Colour theme; see [its README](targets/vscode/README.md) |
 
 ## Install
@@ -45,6 +46,10 @@ The glow target also only adds the style file. To use it, set
 `style: "/home/<you>/.config/glow/lcars.json"` in `glow.yml`. The path must be
 absolute, because glow reads it without expanding `~` or `$HOME`. When output
 goes to a pipe, glow ignores this setting unless you give `-s`.
+
+The doom target only adds the theme file. To use it, set
+`(setq doom-theme 'doom-lcars)` in `config.el` and restart Emacs or run
+`doom/reload-theme`.
 
 ## Sway dependencies
 

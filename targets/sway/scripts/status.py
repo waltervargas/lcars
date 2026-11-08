@@ -12,9 +12,11 @@ Mouse actions:
   MIC      left: toggle mute
   VOL      left: toggle mute   right: sound settings   scroll: change
   LUM      scroll: change
+  - / +    left: step the value between them, on either side of VOL and LUM
   power    left: cycle power profile   right: power settings
   clock    left: open or close the calendar
 """
+import html
 import json
 import os
 import shutil
@@ -37,6 +39,24 @@ PROFILES = ["power-saver", "balanced", "performance"]
 PROFILE_LABELS = {"power-saver": " SAVER", "performance": " PERF"}
 
 LEFT, RIGHT, SCROLL_UP, SCROLL_DOWN = 1, 3, 4, 5
+
+# Monochrome icons, drawn in the block's black text colour. U+FE0E in icon()
+# stops Pango from switching emoji-presentation characters to Noto Color Emoji.
+ICON_FONT = "Symbola"
+ICONS = {
+    "comms": "\U0001F4F6",  # antenna bars
+    "vpn": "\U0001F6E1",  # shield
+    "bt": "\u16D2",  # runic berkanan, the Bluetooth logo's B
+    "cpu": "\u2699",  # gear
+    "mem": "\u25A4",  # lined square
+    "disk": "\U0001F4BE",  # floppy
+    "mic": "\U0001F3A4",  # microphone
+    "volume": "\U0001F50A",  # speaker
+    "lum": "\U0001F506",  # bright button
+    "power": "\U0001F50B",  # battery
+    "clock": "\U0001F553",  # clock face
+}
+MUTED_ICON = "\U0001F507"  # crossed-out speaker
 
 redraw = threading.Event()  # draw now rather than at the next interval
 poke = threading.Event()  # refresh the slow state now
@@ -88,16 +108,31 @@ def settings(panel):
     spawn("env", "XDG_CURRENT_DESKTOP=GNOME", "gnome-control-center", panel)
 
 
-def block(name, text, color):
+def icon(char):
+    return f"<span font_family='{ICON_FONT}' font_weight='normal'>{char}\uFE0E</span> "
+
+
+def block(name, text, color, glyph=None):
+    glyph = glyph or ICONS.get(name)
     return {
         "name": name,
-        "full_text": f"  {text}  ",
+        "full_text": f"  {icon(glyph) if glyph else ''}{html.escape(text)}  ",
+        "markup": "pango",
         "color": BLACK,
         "background": color,
         "border": BLACK,
         "separator": False,
         "separator_block_width": 3,
     }
+
+
+def stepper(name, middle):
+    """A value block between buttons that lower and raise it."""
+    return [
+        block(f"{name}-down", "\u2212", LAVENDER),
+        middle,
+        block(f"{name}-up", "+", LAVENDER),
+    ]
 
 
 def human(num):
@@ -293,7 +328,8 @@ def disk():
     return block("disk", f"DISK {human(use.free)} FREE", RED if pct >= 90 else LAVENDER)
 
 
-def brightness():
+def backlight_pct():
+    """Display brightness as a percentage, or None without a usable backlight."""
     devices = os.listdir(BACKLIGHT) if os.path.isdir(BACKLIGHT) else []
     if not devices:
         return None
@@ -301,7 +337,12 @@ def brightness():
     maximum = int(read(f"{dev}/max_brightness", "0"))
     if not maximum:
         return None
-    return block("lum", f"LUM {round(100 * int(read(f'{dev}/brightness', '0')) / maximum)}%", PEACH)
+    return round(100 * int(read(f"{dev}/brightness", "0")) / maximum)
+
+
+def brightness():
+    pct = backlight_pct()
+    return None if pct is None else stepper("lum", block("lum", f"LUM {pct}%", PEACH))
 
 
 def power():
@@ -352,8 +393,8 @@ def volume():
     if len(parts) < 2:
         return None
     if "[MUTED]" in out:
-        return block("volume", "VOL MUTED", RED)
-    return block("volume", f"VOL {round(float(parts[1]) * 100)}%", BLUE)
+        return stepper("volume", block("volume", "VOL MUTED", RED, MUTED_ICON))
+    return stepper("volume", block("volume", f"VOL {round(float(parts[1]) * 100)}%", BLUE))
 
 
 def clock():
@@ -385,6 +426,14 @@ def cycle_profile():
     run("powerprofilesctl", "set", PROFILES[(index + 1) % len(PROFILES)])
 
 
+def volume_up():
+    run("wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", "5%+")
+
+
+def volume_down():
+    run("wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-")
+
+
 ACTIONS = {
     ("comms", LEFT): lambda: terminal("nmtui"),
     ("comms", RIGHT): toggle_net_detail,
@@ -397,10 +446,14 @@ ACTIONS = {
     ("mic", LEFT): lambda: run("wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle"),
     ("volume", LEFT): lambda: run("wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"),
     ("volume", RIGHT): lambda: settings("sound"),
-    ("volume", SCROLL_UP): lambda: run("wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", "5%+"),
-    ("volume", SCROLL_DOWN): lambda: run("wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-"),
+    ("volume", SCROLL_UP): volume_up,
+    ("volume", SCROLL_DOWN): volume_down,
+    ("volume-down", LEFT): volume_down,
+    ("volume-up", LEFT): volume_up,
     ("lum", SCROLL_UP): lambda: run(f"{SCRIPTS}/brightness.sh", "+5"),
     ("lum", SCROLL_DOWN): lambda: run(f"{SCRIPTS}/brightness.sh", "-5"),
+    ("lum-down", LEFT): lambda: run(f"{SCRIPTS}/brightness.sh", "-5"),
+    ("lum-up", LEFT): lambda: run(f"{SCRIPTS}/brightness.sh", "+5"),
     ("power", LEFT): cycle_profile,
     ("power", RIGHT): lambda: settings("power"),
     ("clock", LEFT): lambda: toggle_terminal("clock", "--hold", "python3", "-m", "calendar", cols=72, lines=38),
@@ -455,8 +508,14 @@ def main():
         microphone, volume, brightness, power, clock,
     ]
     while True:
-        blocks = [safe(source) for source in sources]
-        print(json.dumps([b for b in blocks if b]) + ",", flush=True)
+        blocks = []
+        for source in sources:
+            result = safe(source)  # a block, a list of blocks, or None
+            if isinstance(result, list):
+                blocks.extend(result)
+            elif result:
+                blocks.append(result)
+        print(json.dumps(blocks) + ",", flush=True)
         redraw.wait(INTERVAL)
         redraw.clear()
 
