@@ -427,11 +427,11 @@ def cycle_profile():
 
 
 def volume_up():
-    run("wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", "5%+")
+    run(f"{SCRIPTS}/volume.sh", "up")
 
 
 def volume_down():
-    run("wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-")
+    run(f"{SCRIPTS}/volume.sh", "down")
 
 
 ACTIONS = {
@@ -444,7 +444,7 @@ ACTIONS = {
     ("mem", LEFT): lambda: toggle_terminal("mem", "htop", "-s", "PERCENT_MEM"),
     ("disk", LEFT): lambda: spawn("baobab", os.path.expanduser("~")),
     ("mic", LEFT): lambda: run("wpctl", "set-mute", "@DEFAULT_AUDIO_SOURCE@", "toggle"),
-    ("volume", LEFT): lambda: run("wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"),
+    ("volume", LEFT): lambda: run(f"{SCRIPTS}/volume.sh", "mute"),
     ("volume", RIGHT): lambda: settings("sound"),
     ("volume", SCROLL_UP): volume_up,
     ("volume", SCROLL_DOWN): volume_down,

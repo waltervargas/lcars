@@ -23,6 +23,7 @@ each OS.
 | `mako` | `~/.config/mako` | Notification colours and `do-not-disturb` mode |
 | `kanshi` | `~/.config/kanshi` | Display profiles; edit the output names for your machine |
 | `xdg-desktop-portal-wlr` | `~/.config/xdg-desktop-portal-wlr` | Screen-share picker (slurp in LCARS colours) and frame rate |
+| `wob` | `~/.config/wob` | On-screen bar shown on volume and brightness changes |
 | `foot` | `~/.config/foot` | Terminal colours |
 | `kitty` | `~/.config/kitty` | Terminal colours (`lcars.conf`) |
 | `glow` | `~/.config/glow` | Markdown style (`lcars.json`), in glamour's JSON format |
@@ -68,7 +69,7 @@ Required: `sway`, `swaybar`, `python3`, `foot`, `kitty`, `wmenu`,
 `fonts-liberation`.
 
 Optional: `swaylock`, `swayidle`, `grim`, `slurp`, `wl-clipboard`,
-`mako-notifier`, `cliphist`, `kanshi`, `xdg-desktop-portal-wlr`, `playerctl`,
+`mako-notifier`, `cliphist`, `kanshi`, `xdg-desktop-portal-wlr`, `playerctl`, `wob`,
 `nm-applet`, `htop`, `baobab`, `bluez`, `wireplumber`, `pulseaudio-utils`,
 `power-profiles-daemon`, `gnome-control-center`, and `autotiling` from PyPI
 (`pipx install autotiling`).
