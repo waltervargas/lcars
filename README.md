@@ -70,6 +70,7 @@ Required: `sway`, `swaybar`, `python3`, `foot`, `kitty`, `wmenu`,
 
 Optional: `swaylock`, `swayidle`, `grim`, `slurp`, `wl-clipboard`,
 `mako-notifier`, `cliphist`, `kanshi`, `xdg-desktop-portal-wlr`, `playerctl`, `wob`,
+`wlsunset`,
 `nm-applet`, `htop`, `baobab`, `bluez`, `wireplumber`, `pulseaudio-utils`,
 `power-profiles-daemon`, `gnome-control-center`, and `autotiling` from PyPI
 (`pipx install autotiling`).

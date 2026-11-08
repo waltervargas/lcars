@@ -67,6 +67,8 @@ exec kanshi
 exec ~/.local/bin/autotiling
 # On-screen bar for volume and brightness changes (wob)
 exec $scripts/osd.sh
+# Night light (wlsunset); location and temperatures are in the script
+exec $scripts/nightlight.sh
 # Tell systemd and D-Bus which desktop runs, so xdg-desktop-portal picks the
 # wlr backend for screen sharing (sway-portals.conf)
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
@@ -186,6 +188,9 @@ bindsym $mod+Shift+n exec makoctl mode -t do-not-disturb
 
 # Clipboard history
 bindsym $mod+c exec $scripts/clipboard.sh
+
+# Night light: toggle on and off
+bindsym $mod+Shift+w exec $scripts/nightlight.sh toggle
 
 # Laptop keys
 bindsym --locked XF86AudioRaiseVolume exec $scripts/volume.sh up
