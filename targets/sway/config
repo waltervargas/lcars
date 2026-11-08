@@ -57,6 +57,14 @@ input type:touchpad {
 exec $scripts/idle.sh
 exec nm-applet --indicator
 
+# Notifications, clipboard history and display profiles
+exec mako
+exec wl-paste --watch cliphist store
+exec kanshi
+# Tell systemd and D-Bus which desktop runs, so xdg-desktop-portal picks the
+# wlr backend for screen sharing (sway-portals.conf)
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
 ### Key bindings (i3 defaults)
 
 # Applications
@@ -165,6 +173,13 @@ bindsym $mod+Shift+x exec $scripts/lock.sh
 bindsym Print exec $scripts/screenshot.sh
 bindsym Shift+Print exec $scripts/screenshot.sh region
 bindsym $mod+Shift+s exec $scripts/screenshot.sh region
+
+# Notifications: dismiss the newest, or toggle do-not-disturb
+bindsym $mod+n exec makoctl dismiss
+bindsym $mod+Shift+n exec makoctl mode -t do-not-disturb
+
+# Clipboard history
+bindsym $mod+c exec $scripts/clipboard.sh
 
 # Laptop keys
 bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
