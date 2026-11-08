@@ -1,0 +1,53 @@
+/* wlogout power menu, LCARS colours. One colour per action, black labels. */
+* {
+    background-image: none;
+    font-family: "Liberation Sans Narrow";
+    font-weight: bold;
+}
+
+window {
+    background-color: rgba(0, 0, 0, 0.92);
+}
+
+button {
+    color: #000000;
+    font-size: 22px;
+    border: 3px solid #000000;
+    border-radius: 0;
+    margin: 12px;
+    background-repeat: no-repeat;
+    background-position: center 38%;
+    background-size: 30%;
+}
+
+button:focus, button:active, button:hover {
+    color: #000000;
+    background-color: #FFCC99;
+    border-color: #FFCC99;
+    outline-style: none;
+}
+
+#lock {
+    background-color: #FF9900;
+    background-image: image(url("/usr/share/wlogout/icons/lock.png"));
+}
+
+#suspend {
+    background-color: #CC99CC;
+    background-image: image(url("/usr/share/wlogout/icons/suspend.png"));
+}
+
+#logout {
+    background-color: #9977AA;
+    background-image: image(url("/usr/share/wlogout/icons/logout.png"));
+}
+
+#reboot {
+    background-color: #9999FF;
+    background-image: image(url("/usr/share/wlogout/icons/reboot.png"));
+}
+
+#shutdown {
+    background-color: #CC4444;
+    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"));
+}

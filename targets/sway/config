@@ -151,8 +151,8 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r reload
 
-# Exit
-bindsym $mod+Shift+e exec swaynag -t lcars -m 'End this Wayland session?' -B 'Exit sway' 'swaymsg exit'
+# Power menu: lock, suspend, log out, reboot, shut down
+bindsym $mod+Shift+e exec $scripts/power.sh
 
 # Resize
 mode "resize" {

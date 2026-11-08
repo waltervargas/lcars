@@ -24,6 +24,7 @@ each OS.
 | `kanshi` | `~/.config/kanshi` | Display profiles; edit the output names for your machine |
 | `xdg-desktop-portal-wlr` | `~/.config/xdg-desktop-portal-wlr` | Screen-share picker (slurp in LCARS colours) and frame rate |
 | `wob` | `~/.config/wob` | On-screen bar shown on volume and brightness changes |
+| `wlogout` | `~/.config/wlogout` | Power menu: lock, suspend, log out, reboot, shut down (`$mod+Shift+e`) |
 | `foot` | `~/.config/foot` | Terminal colours |
 | `kitty` | `~/.config/kitty` | Terminal colours (`lcars.conf`) |
 | `glow` | `~/.config/glow` | Markdown style (`lcars.json`), in glamour's JSON format |
@@ -70,7 +71,7 @@ Required: `sway`, `swaybar`, `python3`, `foot`, `kitty`, `wmenu`,
 
 Optional: `swaylock`, `swayidle`, `grim`, `slurp`, `wl-clipboard`,
 `mako-notifier`, `cliphist`, `kanshi`, `xdg-desktop-portal-wlr`, `playerctl`, `wob`,
-`wlsunset`,
+`wlsunset`, `wlogout`,
 `nm-applet`, `htop`, `baobab`, `bluez`, `wireplumber`, `pulseaudio-utils`,
 `power-profiles-daemon`, `gnome-control-center`, and `autotiling` from PyPI
 (`pipx install autotiling`).
